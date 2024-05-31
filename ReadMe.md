@@ -1,6 +1,6 @@
 # JobUp.ch Scraper
 
-This repository contains a Python script to scrape job listings from [JobUp.ch](https://www.jobup.ch/), a popular job search website. The script collects job links, locations, work rates, contract types, and company names, and stores them in a CSV file.
+This repository contains a Python script to scrape job listings from [JobUp.ch](https://www.jobup.ch/), a popular job search website. The script collects job links, locations, work rates, contract types, and company names, and stores them in a CSV file. It's more meant to be a test repository to practice scraping data with python.
 
 ## Features
 
