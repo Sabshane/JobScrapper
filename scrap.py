@@ -13,7 +13,7 @@ defaultSoup = BeautifulSoup(defaultPage.content, "html.parser")
 maxPage = defaultSoup.select('div[class*="PaginatedLink___"]')[-2]
 maxPageInt = int("".join(filter(str.isdecimal, maxPage.text)))
 print(f"Total pages to process: {maxPageInt}")
-
+jobEntry=0
 # Create a new session
 session = requests.Session()
 # Add headers to simulate incognito mode
@@ -27,7 +27,7 @@ with open('results.csv', 'a', newline='', encoding="utf-8") as csvfile:
 
     for x in range(1, maxPageInt + 1):
         URL = f"https://www.jobup.ch/fr/emplois/?page={x}"
-        progress_bar.set_description(f"Processing page {x}/{maxPageInt}")
+        progress_bar.set_description(f"Processing page {x}/{maxPageInt} , {jobEntry} job entries found")
 
         page = session.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
@@ -47,6 +47,7 @@ with open('results.csv', 'a', newline='', encoding="utf-8") as csvfile:
                 job_datas_soup = item.select("[class='P-sc-hyu5hk-0 Text__p2-sc-1lu7urs-10 Span-sc-1ybanni-0 Text__span-sc-1lu7urs-12 Text-sc-1lu7urs-13 KlqjR']")
                 for idx, job_data in enumerate(job_datas_soup):
                     if idx < len(job_datas):
+                        jobEntry+=1
                         job_datas[list(job_datas.keys())[idx]] = job_data.get_text()
             except AttributeError:
                 job_datas = 0
@@ -57,4 +58,4 @@ with open('results.csv', 'a', newline='', encoding="utf-8") as csvfile:
 
     progress_bar.close()  
 
-print("Script completed successfully!")
+print("Script completed successfully! \n We found "+ jobEntry+" job entries.")
